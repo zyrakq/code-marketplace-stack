@@ -1,0 +1,8 @@
+services:
+  code-marketplace:
+    networks:
+      - code-marketplace-workspace-network
+
+networks:
+  code-marketplace-workspace-network:
+    external: true

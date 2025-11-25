@@ -1,0 +1,4 @@
+services:
+  code-marketplace:
+    ports:
+      - "80:80"

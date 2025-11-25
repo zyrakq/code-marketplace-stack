@@ -1,0 +1,21 @@
+services:
+  code-marketplace:
+    container_name: code-marketplace
+    image: ghcr.io/coder/code-marketplace:v2.4.0
+    restart: unless-stopped
+    command: ["--address", "0.0.0.0:80", "--extensions-dir", "/extensions"]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: 3
+    volumes:
+      - code-marketplace:/extensions
+    networks:
+      - code-marketplace-workspace-network
+volumes:
+  code-marketplace:
+    name: code-marketplace
+networks:
+  code-marketplace-workspace-network:
+    external: true

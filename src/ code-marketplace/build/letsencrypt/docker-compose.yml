@@ -1,0 +1,26 @@
+services:
+  code-marketplace:
+    container_name: code-marketplace
+    image: ghcr.io/coder/code-marketplace:v2.4.0
+    restart: unless-stopped
+    command: ["--address", "0.0.0.0:80", "--extensions-dir", "/extensions"]
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: 3
+    volumes:
+      - code-marketplace:/extensions
+    environment:
+      VIRTUAL_PORT: ${VIRTUAL_PORT:-80}
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+    networks:
+      - letsencrypt-network
+volumes:
+  code-marketplace:
+    name: code-marketplace
+networks:
+  letsencrypt-network:
+    external: true
